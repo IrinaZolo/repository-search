@@ -1,0 +1,36 @@
+.inputGroup {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: white;
+  color: #7a7e89;
+  border-radius: 4px;
+  height: 45px;
+  padding: 5px 10px;
+  transition: all 0.3s;
+}
+
+.inputGroup:focus-within {
+  outline: none;
+  color: #47494e;
+  background: white;
+}
+
+/* Поле ввода */
+.input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.input::placeholder {
+  width: 100%;
+  color: #47494e;
+}
+
+.input:focus {
+  color: #47494e;
+}
