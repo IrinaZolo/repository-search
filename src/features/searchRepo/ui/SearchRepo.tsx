@@ -2,6 +2,8 @@ import { ChangeEvent, useState } from "react";
 
 import Input from "@/shared/ui/components/input/Input";
 
+import styles from "./SearchRepo.module.css";
+
 export default function SearchRepo() {
   const [searchValue, setSearchValue] = useState<string>();
 
@@ -10,8 +12,14 @@ export default function SearchRepo() {
   }
 
   return (
-    <div className="">
-      <Input type={"string"} value={searchValue} onChange={onChangeSearch} />
+    <div className={styles.container}>
+      <Input
+        type={"string"}
+        value={searchValue}
+        isSearch
+        onChange={onChangeSearch}
+      />
+      <div className={styles.cardsContainer}></div>
     </div>
   );
 }

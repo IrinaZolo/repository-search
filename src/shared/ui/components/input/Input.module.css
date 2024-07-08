@@ -8,12 +8,24 @@
   height: 45px;
   padding: 5px 10px;
   transition: all 0.3s;
+  fill: #7a7e89;
+  gap: 8px;
+}
+
+.inputGroup > svg {
+  width: 20px;
+  height: 20px;
+  fill: #848790;
 }
 
 .inputGroup:focus-within {
   outline: none;
   color: #47494e;
   background: white;
+}
+
+.inputGroup:focus-within > svg {
+  fill: #47494e;
 }
 
 /* Поле ввода */

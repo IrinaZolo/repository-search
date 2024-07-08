@@ -11,4 +11,12 @@ module.exports = {
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",
   plugins: ["react-refresh"],
+  rules: {
+    "import/no-internal-modules": [
+      "off",
+      {
+        allow: ["@/shared/ui/icons/*"],
+      },
+    ],
+  },
 };

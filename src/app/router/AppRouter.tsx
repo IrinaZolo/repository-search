@@ -12,6 +12,8 @@ import { sharedConfigRoutes } from "@/shared/config";
 import { mainPageUi } from "@/pages/mainPage";
 import { repoPageUi } from "@/pages/repoPage";
 
+import styles from "./AppRouter.module.css";
+
 export const AppRouter = () => {
   const { MAIN_PAGE, REPO_PAGE } = sharedConfigRoutes.RouteName;
 
@@ -80,12 +82,12 @@ export const AppRouter = () => {
   return (
     <ApolloProvider client={client}>
       <BrowserRouter>
-        <>
+        <div className={styles.container}>
           <Routes>
             {routesContent}
             <Route path="*" element={<div>not found page</div>} />
           </Routes>
-        </>
+        </div>
       </BrowserRouter>
     </ApolloProvider>
   );
