@@ -4,20 +4,25 @@ import * as Types from '../../../shared/api/models.gen';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
-export type RepoListQueryVariables = Types.Exact<{ [key: string]: never; }>;
+export type RepoListQueryVariables = Types.Exact<{
+  login: Types.Scalars['String']['input'];
+  last?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+  privacy?: Types.InputMaybe<Types.RepositoryPrivacy>;
+  lastComment?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+}>;
 
 
 export type RepoListQuery = { readonly user?: { readonly repositories: { readonly totalCount: number, readonly nodes?: ReadonlyArray<{ readonly name: string, readonly stargazerCount: number, readonly url: any, readonly commitComments: { readonly totalCount: number, readonly nodes?: ReadonlyArray<{ readonly createdAt: any } | null> | null } } | null> | null } } | null };
 
 
 export const RepoListDocument = gql`
-    query RepoList {
-  user(login: "IrinaZolo") {
-    repositories(last: 10, privacy: PUBLIC) {
+    query RepoList($login: String!, $last: Int, $privacy: RepositoryPrivacy, $lastComment: Int) {
+  user(login: $login) {
+    repositories(last: $last, privacy: $privacy) {
       nodes {
         name
         stargazerCount
-        commitComments(last: 1) {
+        commitComments(last: $lastComment) {
           nodes {
             createdAt
           }
@@ -43,10 +48,14 @@ export const RepoListDocument = gql`
  * @example
  * const { data, loading, error } = useRepoListQuery({
  *   variables: {
+ *      login: // value for 'login'
+ *      last: // value for 'last'
+ *      privacy: // value for 'privacy'
+ *      lastComment: // value for 'lastComment'
  *   },
  * });
  */
-export function useRepoListQuery(baseOptions?: Apollo.QueryHookOptions<RepoListQuery, RepoListQueryVariables>) {
+export function useRepoListQuery(baseOptions: Apollo.QueryHookOptions<RepoListQuery, RepoListQueryVariables> & ({ variables: RepoListQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<RepoListQuery, RepoListQueryVariables>(RepoListDocument, options);
       }

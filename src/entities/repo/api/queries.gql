@@ -1,10 +1,15 @@
-query RepoList {
-  user(login: "IrinaZolo") {
-    repositories(last: 10, privacy: PUBLIC) {
+query RepoList(
+  $login: String!
+  $last: Int
+  $privacy: RepositoryPrivacy
+  $lastComment: Int
+) {
+  user(login: $login) {
+    repositories(last: $last, privacy: $privacy) {
       nodes {
         name
         stargazerCount
-        commitComments(last: 1) {
+        commitComments(last: $lastComment) {
           nodes {
             createdAt
           }
@@ -12,7 +17,6 @@ query RepoList {
         }
         url
       }
-
       totalCount
     }
   }
