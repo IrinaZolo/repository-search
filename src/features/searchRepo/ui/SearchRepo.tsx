@@ -4,8 +4,8 @@ import Input from "@/shared/ui/components/input/Input";
 
 import styles from "./SearchRepo.module.css";
 
-export default function SearchRepo() {
-  const [searchValue, setSearchValue] = useState<string>();
+export function SearchRepo() {
+  const [searchValue, setSearchValue] = useState<string>("");
 
   function onChangeSearch(e: ChangeEvent<HTMLInputElement>) {
     setSearchValue(e.target.value);

@@ -1,0 +1,19 @@
+query RepoList {
+  user(login: "IrinaZolo") {
+    repositories(last: 10, privacy: PUBLIC) {
+      nodes {
+        name
+        stargazerCount
+        commitComments(last: 1) {
+          nodes {
+            createdAt
+          }
+          totalCount
+        }
+        url
+      }
+
+      totalCount
+    }
+  }
+}

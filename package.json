@@ -7,11 +7,15 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "compile": "graphql-codegen",
+    "watch": "graphql-codegen -w"
   },
   "dependencies": {
     "@apollo/client": "^3.10.8",
     "compose-function": "^3.0.3",
+    "effector": "^23.2.2",
+    "effector-react": "^23.2.1",
     "graphql": "^16.9.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -20,6 +24,12 @@
   },
   "devDependencies": {
     "@feature-sliced/eslint-config": "github:feature-sliced/eslint-config",
+    "@graphql-codegen/add": "^5.0.3",
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/client-preset": "^4.3.2",
+    "@graphql-codegen/near-operation-file-preset": "^3.0.0",
+    "@graphql-codegen/typescript-react-apollo": "^4.3.0",
+    "@graphql-typed-document-node/core": "^3.2.0",
     "@types/compose-function": "^0.0.33",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",

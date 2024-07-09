@@ -36,7 +36,7 @@ export const AppRouter = () => {
   ));
 
   const httpLink = createHttpLink({
-    uri: "https://api.github.com/graphql",
+    uri: import.meta.env.VITE_API_URL,
   });
   const authLink = setContext((_, { headers }) => {
     return {
