@@ -1,18 +1,16 @@
 import { useUnit } from "effector-react";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 import Input from "@/shared/ui/components/input/Input";
 
 import { repoUserListSubModel } from "@/entities/repo/model";
 
 import styles from "./SearchRepo.module.css";
-// import { useRepoListQuery } from "@/entities/repo/api/repoUserList";
-// import { RepositoryPrivacy } from "@/shared/api/models.gen";
 
 export function SearchRepo() {
   const [searchValue, setSearchValue] = useState<string>("");
 
-  const { $repoList, $isLoading } = repoUserListSubModel;
+  const { $repoList, $isLoading, pageMounted } = repoUserListSubModel;
 
   const [repoList, isLoading] = useUnit([$repoList, $isLoading]);
 
@@ -20,18 +18,9 @@ export function SearchRepo() {
     setSearchValue(e.target.value);
   }
 
-  // // useEffect(() => {
-  // //   pageMounted();
-  // // }, []);
-
-  // const { data, loading } = useRepoListQuery({
-  //   variables: {
-  //     login: "IrinaZolo",
-  //     last: 10,
-  //     privacy: RepositoryPrivacy.Public,
-  //     lastComment: 1,
-  //   },
-  // });
+  useEffect(() => {
+    pageMounted();
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -42,12 +31,15 @@ export function SearchRepo() {
         onChange={onChangeSearch}
       />
       <div className={styles.cardsContainer}>
-        {!isLoading &&
+        {!isLoading ? (
           repoList?.map((repo, index) => (
             <div key={index}>
               <h1>{repo.name}</h1>
             </div>
-          ))}
+          ))
+        ) : (
+          <div>loading ...</div>
+        )}
       </div>
     </div>
   );

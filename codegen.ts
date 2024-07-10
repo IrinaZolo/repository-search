@@ -16,15 +16,15 @@ const config: CodegenConfig = {
     preResolveTypes: true,
   },
   generates: {
-    "src/shared/api/models.gen.ts": {
+    "src/shared/model/models.gen.ts": {
       plugins: ["add", "typescript"],
     },
     "src/": {
       preset: "near-operation-file",
-      plugins: ["add", "typescript-operations", "typescript-react-apollo"],
+      plugins: ["add", "typescript-operations"],
       presetConfig: {
         extension: ".gen.ts",
-        baseTypesPath: "shared/api/models.gen.ts",
+        baseTypesPath: "shared/model/models.gen.ts",
       },
     },
   },

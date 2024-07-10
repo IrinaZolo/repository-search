@@ -1,17 +1,10 @@
-// import { ApolloError } from "@apollo/client";
-import * as Apollo from "@apollo/client";
-import { createStore, createEffect, createEvent } from "effector";
-// import { useUnit } from "effector-react";
+import { AxiosResponse } from "axios";
+import { createStore, createEffect, createEvent, sample } from "effector";
 
-import * as Types from "@/shared/api/models.gen";
+import axios from "@/shared/api/base";
+import * as Types from "@/shared/model/models.gen";
 
-import {
-  // useRepoListQuery,
-  RepoListQueryVariables,
-  // RepoListQueryHookResult,
-  RepoListQuery,
-  RepoListDocument,
-} from "../api/repoUserList";
+import { RepoListQuery, RepoListQueryVariables } from "../api/repoUserList";
 
 Types.RepositoryPrivacy;
 
@@ -23,21 +16,47 @@ const variables: RepoListQueryVariables = {
   privacy: Types.RepositoryPrivacy.Public,
   lastComment: 1,
 };
-// function useData() {
-//   const result = useRepoListQuery({
-//     variables,
-//   });
-//   return result;
-// }
 
-export const getRepoListFx = createEffect<
-  RepoListQueryVariables,
-  Apollo.QueryResult<RepoListQuery>
->((variables) => {
-  return Apollo.useQuery<RepoListQuery, RepoListQueryVariables>(
-    RepoListDocument,
-    variables
-  );
+const query: string = `
+query RepoList(
+  $login: String!
+  $last: Int
+  $privacy: RepositoryPrivacy
+  $lastComment: Int
+) {
+  user(login: $login) {
+    repositories(last: $last, privacy: $privacy) {
+      nodes {
+        name
+        stargazerCount
+        commitComments(last: $lastComment) {
+          nodes {
+            createdAt
+          }
+        }
+        url
+      }
+    }
+  }
+}
+`;
+
+type QueryParams = {
+  operationName: string;
+  query: string;
+  variables: RepoListQueryVariables;
+};
+
+function getUserRepo(params: QueryParams) {
+  return axios.post<AxiosResponse<RepoListQuery>>("", {
+    operationName: params.operationName,
+    query: params.query,
+    variables: params.variables,
+  });
+}
+
+export const getRepoListFx = createEffect((params: QueryParams) => {
+  return getUserRepo(params);
 });
 
 type repositoriesType = RepoListQuery["user"]["repositories"]["nodes"];
@@ -48,43 +67,41 @@ export const $repoList = createStore<repositoriesType>(
   repositoriesInitialState
 );
 
-export const $isLoading = createStore<Apollo.QueryResult["loading"]>(false);
+export const $isLoading = createStore<boolean>(false);
 
-export const $error = createStore<Apollo.QueryResult["error"]>(null);
-$error.on(getRepoListFx.doneData, (_, payload) => payload?.error);
+export const $error = createStore(null);
+export const $errorServer = createStore<Error>(null);
 
-$repoList.on(
-  getRepoListFx,
-  (_, payload) => payload?.data?.user?.repositories?.nodes
+$repoList.on(getRepoListFx.doneData, (_, payload) => {
+  console.log("payload", payload.data);
+  return payload?.data?.data?.user?.repositories?.nodes;
+});
+
+$isLoading.on(getRepoListFx.pending, (_, payload) => payload);
+
+$errorServer.on(
+  getRepoListFx.fail,
+  (_, payload) => payload?.error?.[0]?.message
 );
 
-$isLoading.on(getRepoListFx.doneData, (_, payload) => payload?.loading);
-
-$error.on(getRepoListFx.doneData, (_, payload) => payload?.error);
-
-pageMounted.watch(() => getRepoListFx);
-
-// sample({
-//   clock: pageMounted,
-//   target: getRepoListFx,
-// });
-
-// const useRepoList = () =>
-//   useUnit([
-//     $repositoriesList,
-//     $repositoriesListIsLoading,
-//     $repositoriesListError,
-//     pageMounted,
-//   ]);
-
-// export const selectors = { useRepoList };
-// export const events = { pageMounted };
-
-$repoList.watch(() => console.log(getRepoListFx(variables)));
-// $repositoriesListIsLoading.watch((state) => console.log(state));
-
-// $repoList.on(pageMounted, (_, data)=>data)
-
-pageMounted.watch(() => {
-  getRepoListFx(variables);
+sample({
+  clock: pageMounted,
+  fn: () => ({
+    operationName: "RepoList",
+    query: query,
+    variables: variables,
+  }),
+  target: getRepoListFx,
 });
+
+$repoList.watch((state) => console.log("repo", state));
+$isLoading.watch((state) => console.log("loading", state));
+$error.watch((state) => console.log("error", state));
+
+// pageMounted.watch(() => {
+//   getRepoListFx({
+//     operationName: "RepoList",
+//     query: query,
+//     variables: variables,
+//   });
+// });
