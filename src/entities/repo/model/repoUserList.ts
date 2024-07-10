@@ -8,7 +8,7 @@ import * as Types from "@/shared/api/models.gen";
 import {
   // useRepoListQuery,
   RepoListQueryVariables,
-  RepoListQueryHookResult,
+  // RepoListQueryHookResult,
   RepoListQuery,
   RepoListDocument,
 } from "../api/repoUserList";
@@ -30,7 +30,10 @@ const variables: RepoListQueryVariables = {
 //   return result;
 // }
 
-export const getRepoListFx = createEffect((variables) => {
+export const getRepoListFx = createEffect<
+  RepoListQueryVariables,
+  Apollo.QueryResult<RepoListQuery>
+>((variables) => {
   return Apollo.useQuery<RepoListQuery, RepoListQueryVariables>(
     RepoListDocument,
     variables
@@ -45,10 +48,9 @@ export const $repoList = createStore<repositoriesType>(
   repositoriesInitialState
 );
 
-export const $isLoading =
-  createStore<RepoListQueryHookResult["loading"]>(false);
+export const $isLoading = createStore<Apollo.QueryResult["loading"]>(false);
 
-export const $error = createStore<RepoListQueryHookResult["error"]>(null);
+export const $error = createStore<Apollo.QueryResult["error"]>(null);
 $error.on(getRepoListFx.doneData, (_, payload) => payload?.error);
 
 $repoList.on(
