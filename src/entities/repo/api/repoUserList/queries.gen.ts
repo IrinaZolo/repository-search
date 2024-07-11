@@ -8,4 +8,4 @@ export type RepoListQueryVariables = Types.Exact<{
 }>;
 
 
-export type RepoListQuery = { user?: { repositories: { totalCount: number, nodes?: Array<{ name: string, stargazerCount: number, url: any, commitComments: { nodes?: Array<{ createdAt: any } | null> | null } } | null> | null, pageInfo: { startCursor?: string | null, endCursor?: string | null } } } | null };
+export type RepoListQuery = { __typename?: 'Query', user?: { __typename?: 'User', repositories: { __typename?: 'RepositoryConnection', totalCount: number, nodes?: Array<{ __typename?: 'Repository', name: string, stargazerCount: number, url: any, commitComments: { __typename?: 'CommitCommentConnection', nodes?: Array<{ __typename?: 'CommitComment', createdAt: any } | null> | null } } | null> | null, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null } } } | null };

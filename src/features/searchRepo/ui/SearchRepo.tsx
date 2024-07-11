@@ -3,6 +3,7 @@ import { useEffect } from "react";
 
 import Input from "@/shared/ui/components/input/Input";
 
+import { RepoFieldsFragment } from "@/entities/repo/api/repoSearchList";
 import {
   repoUserListSubModel,
   repoSearchListSubModel,
@@ -43,24 +44,32 @@ export function SearchRepo() {
         onChange={onChangeSearch}
       />
       <div className={styles.cardsContainer}>
-        {!isLoading && !search ? (
-          repoList?.map((repo, index) => (
-            <div key={index}>
-              <h1>{repo.name}</h1>
-            </div>
-          ))
-        ) : !search ? (
-          <div>loading ...</div>
-        ) : (
-          ""
-        )}
-        {!isSearchLoading && !!search && repoSearchList?.length > 0
-          ? repoSearchList?.map((repo, index) => (
+        {!search ? (
+          !isLoading ? (
+            repoList?.map((repo, index) => (
               <div key={index}>
                 <h1>{repo.name}</h1>
               </div>
             ))
-          : !!search && <div>loading ...</div>}
+          ) : (
+            <div>loading ...</div>
+          )
+        ) : !isSearchLoading ? (
+          repoSearchList?.length > 0 ? (
+            repoSearchList?.map((node, index) => {
+              const repo = node as RepoFieldsFragment;
+              return (
+                <div key={index}>
+                  <h1>{repo.name}</h1>
+                </div>
+              );
+            })
+          ) : (
+            <div>repositories not found</div>
+          )
+        ) : (
+          <div>loading ...</div>
+        )}
       </div>
     </div>
   );

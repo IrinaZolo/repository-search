@@ -2,9 +2,16 @@
 import * as Types from "../../../../shared/model/models.gen";
 
 export type RepoFieldsFragment = {
+  __typename?: "Repository";
   name: string;
   stargazerCount: number;
-  commitComments: { nodes?: Array<{ createdAt: any } | null> | null };
+  commitComments: {
+    __typename?: "CommitCommentConnection";
+    nodes?: Array<{
+      __typename?: "CommitComment";
+      createdAt: any;
+    } | null> | null;
+  };
 };
 
 export type SearchRepoListQueryVariables = Types.Exact<{
@@ -15,14 +22,36 @@ export type SearchRepoListQueryVariables = Types.Exact<{
 }>;
 
 export type SearchRepoListQuery = {
+  __typename?: "Query";
   search: {
+    __typename?: "SearchResultItemConnection";
     repositoryCount: number;
-    nodes?: Array<{
-      name: string;
-      stargazerCount: number;
-      commitComments: { nodes?: Array<{ createdAt: any } | null> | null };
-    } | null> | null;
-    // | {}
-    pageInfo: { startCursor?: string | null; endCursor?: string | null };
+    nodes?: Array<
+      | { __typename?: "App" }
+      | { __typename?: "Discussion" }
+      | { __typename?: "Issue" }
+      | { __typename?: "MarketplaceListing" }
+      | { __typename?: "Organization" }
+      | { __typename?: "PullRequest" }
+      | {
+          __typename?: "Repository";
+          name: string;
+          stargazerCount: number;
+          commitComments: {
+            __typename?: "CommitCommentConnection";
+            nodes?: Array<{
+              __typename?: "CommitComment";
+              createdAt: any;
+            } | null> | null;
+          };
+        }
+      | { __typename?: "User" }
+      | null
+    > | null;
+    pageInfo: {
+      __typename?: "PageInfo";
+      startCursor?: string | null;
+      endCursor?: string | null;
+    };
   };
 };
