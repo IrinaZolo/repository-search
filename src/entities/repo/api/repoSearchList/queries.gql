@@ -1,0 +1,33 @@
+fragment RepoFields on Repository {
+  name
+  stargazerCount
+  commitComments(last: 1) {
+    nodes {
+      createdAt
+    }
+  }
+}
+
+query searchRepoList(
+  $after: String
+  $before: String
+  $first: Int
+  $query: String!
+) {
+  search(
+    after: $after
+    before: $before
+    first: $first
+    query: $query
+    type: REPOSITORY
+  ) {
+    nodes {
+      ...RepoFields
+    }
+    repositoryCount
+    pageInfo {
+      startCursor
+      endCursor
+    }
+  }
+}

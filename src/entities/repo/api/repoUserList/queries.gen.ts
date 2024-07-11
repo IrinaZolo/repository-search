@@ -3,10 +3,9 @@ import * as Types from '../../../../shared/model/models.gen';
 
 export type RepoListQueryVariables = Types.Exact<{
   login: Types.Scalars['String']['input'];
-  last?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+  first?: Types.InputMaybe<Types.Scalars['Int']['input']>;
   privacy?: Types.InputMaybe<Types.RepositoryPrivacy>;
-  lastComment?: Types.InputMaybe<Types.Scalars['Int']['input']>;
 }>;
 
 
-export type RepoListQuery = { readonly user?: { readonly repositories: { readonly nodes?: ReadonlyArray<{ readonly name: string, readonly stargazerCount: number, readonly url: any, readonly commitComments: { readonly nodes?: ReadonlyArray<{ readonly createdAt: any } | null> | null } } | null> | null } } | null };
+export type RepoListQuery = { user?: { repositories: { totalCount: number, nodes?: Array<{ name: string, stargazerCount: number, url: any, commitComments: { nodes?: Array<{ createdAt: any } | null> | null } } | null> | null, pageInfo: { startCursor?: string | null, endCursor?: string | null } } } | null };
