@@ -1,1 +1,1 @@
-export * from "./repoCard/RepoCard";
+export { default as RepoCard } from "./repoCard/RepoCard";

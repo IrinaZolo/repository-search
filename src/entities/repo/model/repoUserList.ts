@@ -34,6 +34,7 @@ export const $errorServer = createStore<Error>(null);
 const initialVariables: RepoListQueryVariables = {
   login: "IrinaZolo",
   first: 10,
+  privacy: "PUBLIC",
 };
 export const $variables = createStore(initialVariables);
 

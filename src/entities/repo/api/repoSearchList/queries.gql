@@ -1,4 +1,5 @@
 fragment RepoFields on Repository {
+  id
   name
   stargazerCount
   commitComments(last: 1) {
@@ -6,6 +7,7 @@ fragment RepoFields on Repository {
       createdAt
     }
   }
+  url
 }
 
 query searchRepoList(
@@ -13,13 +15,14 @@ query searchRepoList(
   $before: String
   $first: Int
   $query: String!
+  $type: SearchType!
 ) {
   search(
     after: $after
     before: $before
     first: $first
     query: $query
-    type: REPOSITORY
+    type: $type
   ) {
     nodes {
       ...RepoFields

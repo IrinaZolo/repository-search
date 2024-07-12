@@ -1,0 +1,105 @@
+.container {
+  box-sizing: border-box;
+  width: 390px;
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid var(--border-main); */
+  padding: 16px;
+  gap: 16px;
+  outline: none;
+  text-decoration: none;
+  border-radius: 4px;
+  background-color: var(--background-item);
+  box-shadow: 0 0px 10px 0 #b1b4c3;
+  transition: all 0.2s;
+}
+
+.container:hover {
+  box-shadow: 0 0px 10px 0 #69729e;
+  /* background-color: var(--background-item-hover); */
+  /* border: 2px solid var(--border-main); */
+}
+
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.title svg {
+  height: 25px;
+  width: 25px;
+  max-width: 20px;
+  fill: var(--border-focus);
+}
+
+.title h2 {
+  margin: 0;
+  padding: 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.container:hover .title h2 {
+  color: var(--item-hover);
+}
+
+.container:hover .title svg {
+  fill: var(--item-hover);
+}
+
+.descriptionContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+
+.starContainer,
+.updateAt {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-light);
+}
+
+.starContainer svg {
+  height: 20px;
+  width: 20px;
+  max-width: 20px;
+  stroke: var(#646770);
+  /* fill: var(--text-light); */
+}
+
+.starContainer svg path {
+  stroke: var(--text-dark);
+}
+
+.linkToGitHub {
+  width: fit-content;
+  outline: none;
+  background-color: transparent;
+  border: 1px solid var(--border-main);
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-main);
+  text-decoration: none;
+  border-radius: 2px;
+  text-align: center;
+  margin-left: auto;
+  transition: background-color 0.3s;
+}
+
+.linkToGitHub:hover {
+  background-color: var(--background-main);
+  border-color: var(--border-focus);
+  color: var(--text-dark);
+}

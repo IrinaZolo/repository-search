@@ -3,11 +3,11 @@ import { useEffect } from "react";
 
 import Input from "@/shared/ui/components/input/Input";
 
-import { RepoFieldsFragment } from "@/entities/repo/api/repoSearchList";
 import {
   repoUserListSubModel,
   repoSearchListSubModel,
 } from "@/entities/repo/model";
+import { RepoCard } from "@/entities/repo/ui";
 
 import styles from "./SearchRepo.module.css";
 
@@ -39,31 +39,49 @@ export function SearchRepo() {
     <div className={styles.container}>
       <Input
         type={"string"}
+        placeholder="Введите наименование репозитория"
         value={search}
         isSearch
         onChange={onChangeSearch}
       />
       <div className={styles.cardsContainer}>
+        {/* <>
+          <RepoCard
+            key={0}
+            id={"12313"}
+            name={"scan"}
+            starsCount={5}
+            url={"#"}
+            lastCommitDate={"02.05.2022"}
+          />
+        </> */}
         {!search ? (
           !isLoading ? (
-            repoList?.map((repo, index) => (
-              <div key={index}>
-                <h1>{repo.name}</h1>
-              </div>
+            repoList?.map((node, index) => (
+              <RepoCard
+                key={index}
+                id={node.id}
+                name={node.name}
+                starsCount={node.stargazerCount}
+                url={node.url}
+                lastCommitDate={node?.commitComments?.nodes?.[0]?.createdAt}
+              />
             ))
           ) : (
             <div>loading ...</div>
           )
         ) : !isSearchLoading ? (
           repoSearchList?.length > 0 ? (
-            repoSearchList?.map((node, index) => {
-              const repo = node as RepoFieldsFragment;
-              return (
-                <div key={index}>
-                  <h1>{repo.name}</h1>
-                </div>
-              );
-            })
+            repoSearchList?.map((node, index) => (
+              <RepoCard
+                key={index}
+                id={node.id}
+                name={node.name}
+                starsCount={node.stargazerCount}
+                url={node?.url}
+                lastCommitDate={node?.commitComments?.nodes?.[0]?.createdAt}
+              />
+            ))
           ) : (
             <div>repositories not found</div>
           )

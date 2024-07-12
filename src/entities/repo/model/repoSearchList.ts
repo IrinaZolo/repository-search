@@ -7,6 +7,7 @@ import {
   SearchRepoListQueryVariables,
   SearchRepoListQuery,
   searchRepoList,
+  RepoFieldsFragment,
 } from "../api/repoSearchList";
 
 export const searchChanged = createEvent<string>();
@@ -23,9 +24,9 @@ export const getRepoListFx = createEffect(({ variables }) => {
   return getRepoSearchList(variables);
 });
 
-type repositoriesType = SearchRepoListQuery["search"]["nodes"];
+// type repositoriesType = SearchRepoListQuery["search"]["nodes"];
 
-export const $repoSearchList = createStore<repositoriesType>([]);
+export const $repoSearchList = createStore<RepoFieldsFragment[]>([]);
 export const $search = createStore<string>("");
 
 export const $isSearchLoading = createStore<boolean>(false);
@@ -35,16 +36,24 @@ export const $searchErrorServer = createStore<Error>(null);
 const initialVariables: SearchRepoListQueryVariables = {
   first: 10,
   query: "",
+  type: "REPOSITORY",
 };
 
 export const $variables =
   createStore<SearchRepoListQueryVariables>(initialVariables);
 
 $search.on(searchChanged, (_, search) => search);
-$variables.on(searchChanged, (_, search) => ({ first: 10, query: search }));
+$variables.on(searchChanged, (state, search) => ({
+  ...state,
+  first: 10,
+  query: search,
+}));
 
 $repoSearchList.on(getRepoListFx.doneData, (_, payload) => {
-  return payload?.data?.data?.search?.nodes;
+  const nodes: SearchRepoListQuery["search"]["nodes"] =
+    payload?.data?.data?.search?.nodes;
+  const repoNodes = nodes as RepoFieldsFragment[];
+  return repoNodes;
 });
 $isSearchLoading.on(getRepoListFx.pending, (_, payload) => payload);
 $searchErrorServer.on(

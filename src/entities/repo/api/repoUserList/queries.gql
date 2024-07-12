@@ -2,6 +2,7 @@ query repoList($login: String!, $first: Int, $privacy: RepositoryPrivacy) {
   user(login: $login) {
     repositories(first: $first, privacy: $privacy) {
       nodes {
+        id
         name
         stargazerCount
         commitComments(last: 1) {

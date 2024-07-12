@@ -2,30 +2,30 @@
   display: flex;
   align-items: center;
   width: 100%;
-  background: white;
-  color: #7a7e89;
+  background: var(--background-item);
+  color: var(--text-light);
+  border: 2px solid var(--border-main);
   border-radius: 4px;
   height: 45px;
   padding: 5px 10px;
   transition: all 0.3s;
-  fill: #7a7e89;
   gap: 8px;
 }
 
 .inputGroup > svg {
   width: 20px;
   height: 20px;
-  fill: #848790;
+  fill: var(--border-main);
 }
 
 .inputGroup:focus-within {
   outline: none;
-  color: #47494e;
+  color: var(--text-main);
   background: white;
 }
 
 .inputGroup:focus-within > svg {
-  fill: #47494e;
+  fill: var(--border-focus);
 }
 
 /* Поле ввода */
@@ -33,16 +33,21 @@
   width: 100%;
   background: transparent;
   border: none;
+  color: var(--text-light);
   outline: none;
   font-size: 17px;
   font-weight: 500;
 }
 
+input::placeholder {
+  color: var(--text-placeholder);
+}
+
 .input::placeholder {
   width: 100%;
-  color: #47494e;
+  color: var(--text-light);
 }
 
 .input:focus {
-  color: #47494e;
+  color: var(--text-main);
 }
