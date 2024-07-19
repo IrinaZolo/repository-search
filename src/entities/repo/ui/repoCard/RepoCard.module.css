@@ -1,4 +1,5 @@
 .container {
+  position: relative;
   box-sizing: border-box;
   width: 390px;
   display: flex;
@@ -12,6 +13,7 @@
   background-color: var(--background-item);
   box-shadow: 0 0px 10px 0 #b1b4c3;
   transition: all 0.2s;
+  cursor: pointer;
 }
 
 .container:hover {
@@ -23,6 +25,7 @@
 .titleContainer {
   display: flex;
   justify-content: space-between;
+  gap: 10px;
 }
 
 .title {
@@ -83,10 +86,12 @@
 }
 
 .linkToGitHub {
+  position: relative;
+  z-index: 2;
   width: fit-content;
   outline: none;
   background-color: transparent;
-  border: 1px solid var(--border-main);
+  border: 2px solid var(--border-main);
   padding: 5px 10px;
   font-size: 14px;
   font-weight: 500;
@@ -96,10 +101,18 @@
   text-align: center;
   margin-left: auto;
   transition: background-color 0.3s;
+  cursor: pointer;
 }
 
 .linkToGitHub:hover {
   background-color: var(--background-main);
   border-color: var(--border-focus);
   color: var(--text-dark);
+}
+
+@media screen and (max-width: 828px) {
+  .container {
+    min-width: none;
+    width: 100%;
+  }
 }

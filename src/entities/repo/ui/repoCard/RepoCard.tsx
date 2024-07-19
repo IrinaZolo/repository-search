@@ -13,10 +13,13 @@ export default function RepoCard(props: {
   url: string;
   lastCommitDate?: string;
 }) {
-  const naigate = useNavigate();
+  const navigate = useNavigate();
 
-  function navigateToGitHub(url: string) {
-    return () => naigate(url);
+  function navigateToGitHub() {
+    return (e) => {
+      e.stopPropagation();
+      // navigate(url);
+    };
   }
 
   function formattedDate(initialDate) {
@@ -45,12 +48,14 @@ export default function RepoCard(props: {
             Обновлено {formattedDate(props.lastCommitDate)}
           </div>
         )}
-        <button
-          onClick={navigateToGitHub(props.url)}
+        <Link
+          to={props.url}
+          target="_blank"
+          onClick={navigateToGitHub()}
           className={styles.linkToGitHub}
         >
           Перейти на GitHub
-        </button>
+        </Link>
       </div>
     </Link>
   );
