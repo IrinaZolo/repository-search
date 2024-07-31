@@ -1,15 +1,11 @@
 :root {
   --content-width: 1140px;
 
-  /* --border-main: #a18d8c; */
   --border-main: #b1b4c3;
   --border-focus: #7e818c;
   --focus-background: #ffffff;
   --background-item: #f4f4f9;
   --item-hover: #596aa7;
-  /* --background-item: #e2e2ee; */
-  /* --background-item: #d8ccd0; */
-  /* --background-main: #b1b4c3; */
   --background-main: #e2e2ee;
   --text-main: #828189;
   --text-dark: #646770;

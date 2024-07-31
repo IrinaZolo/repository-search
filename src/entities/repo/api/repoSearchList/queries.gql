@@ -2,11 +2,7 @@ fragment RepoFields on Repository {
   id
   name
   stargazerCount
-  commitComments(last: 1) {
-    nodes {
-      createdAt
-    }
-  }
+  pushedAt
   url
 }
 

@@ -64,7 +64,7 @@ export function SearchRepo() {
                 name={node.name}
                 starsCount={node.stargazerCount}
                 url={node.url}
-                lastCommitDate={node?.commitComments?.nodes?.[0]?.createdAt}
+                lastPushedDate={node?.pushedAt}
               />
             ))
           ) : (
@@ -79,7 +79,7 @@ export function SearchRepo() {
                 name={node.name}
                 starsCount={node.stargazerCount}
                 url={node?.url}
-                lastCommitDate={node?.commitComments?.nodes?.[0]?.createdAt}
+                lastPushedDate={node?.pushedAt}
               />
             ))
           ) : (

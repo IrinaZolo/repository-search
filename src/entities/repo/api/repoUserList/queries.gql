@@ -5,11 +5,7 @@ query repoList($login: String!, $first: Int, $privacy: RepositoryPrivacy) {
         id
         name
         stargazerCount
-        commitComments(last: 1) {
-          nodes {
-            createdAt
-          }
-        }
+        pushedAt
         url
       }
       totalCount

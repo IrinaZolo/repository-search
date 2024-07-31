@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import RepoIcon from "./icons/repo-icon.svg?react";
 import StarRepoIcon from "./icons/star-repo.svg?react";
@@ -11,14 +11,11 @@ export default function RepoCard(props: {
   name: string;
   starsCount: number;
   url: string;
-  lastCommitDate?: string;
+  lastPushedDate?: string;
 }) {
-  const navigate = useNavigate();
-
   function navigateToGitHub() {
     return (e) => {
       e.stopPropagation();
-      // navigate(url);
     };
   }
 
@@ -43,9 +40,9 @@ export default function RepoCard(props: {
         </div>
       </div>
       <div className={styles.descriptionContainer}>
-        {!!props?.lastCommitDate && (
+        {!!props?.lastPushedDate && (
           <div className={styles.updateAt}>
-            Обновлено {formattedDate(props.lastCommitDate)}
+            Обновлено {formattedDate(props.lastPushedDate)}
           </div>
         )}
         <Link
