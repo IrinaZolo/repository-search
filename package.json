@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.10.8",
+    "atomic-router": "^0.10.1",
+    "atomic-router-react": "^0.10.0",
     "axios": "^1.7.2",
     "compose-function": "^3.0.3",
     "date-fns": "^3.6.0",
@@ -20,9 +22,9 @@
     "effector-react": "^23.2.1",
     "graphql": "^16.9.0",
     "graphql-tag": "^2.12.6",
+    "history": "^5.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.24.1",
     "vite-plugin-svgr": "^4.2.0"
   },
   "devDependencies": {
@@ -34,7 +36,6 @@
     "@graphql-codegen/typescript": "^4.0.9",
     "@graphql-codegen/typescript-graphql-files-modules": "^3.0.0",
     "@graphql-codegen/typescript-operations": "^4.2.3",
-    "@graphql-codegen/typescript-react-apollo": "^4.3.0",
     "@graphql-typed-document-node/core": "^3.2.0",
     "@types/compose-function": "^0.0.33",
     "@types/react": "^18.3.3",

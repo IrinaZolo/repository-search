@@ -53,6 +53,6 @@ sample({
   target: getRepoListFx,
 });
 
-$repoList.watch((state) => console.log("repo", state));
-$isLoading.watch((state) => console.log("loading", state));
-$error.watch((state) => console.log("error", state));
+// $repoList.watch((state) => console.log("repo", state));
+// $isLoading.watch((state) => console.log("loading", state));
+// $error.watch((state) => console.log("error", state));

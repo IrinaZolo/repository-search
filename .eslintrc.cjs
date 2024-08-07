@@ -18,5 +18,6 @@ module.exports = {
         allow: ["@/shared/ui/icons/*"],
       },
     ],
+    "@typescript-eslint/no-explicit-any": "off",
   },
 };

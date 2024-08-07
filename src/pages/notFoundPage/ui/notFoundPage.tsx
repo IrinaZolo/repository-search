@@ -1,15 +1,13 @@
 import { FunctionComponent } from "react";
-
-import { sharedConfigRoutes } from "@/shared/config";
 // import { useParams } from "react-router-dom";
 
 export const RepoPage: FunctionComponent = () => {
-  const { repoId } = sharedConfigRoutes.routes.repo.$params.getState();
+  // const { repoId } = useParams<{ repoId: string }>();
 
   return (
     <div>
       repo page:
-      {repoId}
+      {/* {repoId} */}
     </div>
   );
 };

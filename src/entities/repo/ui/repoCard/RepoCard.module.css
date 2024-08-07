@@ -85,7 +85,7 @@
   stroke: var(--text-dark);
 }
 
-.linkToGitHub {
+.buttonToGitHub {
   position: relative;
   z-index: 2;
   width: fit-content;
@@ -104,7 +104,7 @@
   cursor: pointer;
 }
 
-.linkToGitHub:hover {
+.buttonToGitHub:hover {
   background-color: var(--background-main);
   border-color: var(--border-focus);
   color: var(--text-dark);

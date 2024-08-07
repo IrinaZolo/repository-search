@@ -1,6 +1,8 @@
+import { Link } from "atomic-router-react";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
-import { Link } from "react-router-dom";
+
+import { sharedConfigRoutes } from "@/shared/config";
 
 import RepoIcon from "./icons/repo-icon.svg?react";
 import StarRepoIcon from "./icons/star-repo.svg?react";
@@ -15,7 +17,8 @@ export default function RepoCard(props: {
 }) {
   function navigateToGitHub() {
     return (e) => {
-      e.stopPropagation();
+      e.preventDefault();
+      window.open(props.url, "_blank");
     };
   }
 
@@ -29,7 +32,11 @@ export default function RepoCard(props: {
   }
 
   return (
-    <Link to={`/repo/${props.id}`} className={styles.container}>
+    <Link
+      to={sharedConfigRoutes.routes.repo}
+      params={{ repoId: props.id }}
+      className={styles.container}
+    >
       <div className={styles.titleContainer}>
         <div className={styles.title}>
           <RepoIcon />
@@ -45,14 +52,9 @@ export default function RepoCard(props: {
             Обновлено {formattedDate(props.lastPushedDate)}
           </div>
         )}
-        <Link
-          to={props.url}
-          target="_blank"
-          onClick={navigateToGitHub()}
-          className={styles.linkToGitHub}
-        >
+        <button onClick={navigateToGitHub()} className={styles.buttonToGitHub}>
           Перейти на GitHub
-        </Link>
+        </button>
       </div>
     </Link>
   );
