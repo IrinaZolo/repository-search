@@ -2,7 +2,7 @@ import { Link } from "atomic-router-react";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
 
-import { sharedConfigRoutes } from "@/shared/config";
+import { sharedConfigRoutes } from "@/shared/config/routes";
 
 import RepoIcon from "./icons/repo-icon.svg?react";
 import StarRepoIcon from "./icons/star-repo.svg?react";

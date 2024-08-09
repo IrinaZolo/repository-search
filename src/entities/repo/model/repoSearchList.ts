@@ -11,6 +11,7 @@ import {
 } from "../api/repoSearchList";
 
 export const searchChanged = createEvent<string>();
+export const nextPage = createEvent();
 
 function getRepoSearchList(variables: SearchRepoListQueryVariables) {
   return baseRequester.post<AxiosResponse<SearchRepoListQuery>>("", {
@@ -23,8 +24,6 @@ function getRepoSearchList(variables: SearchRepoListQueryVariables) {
 export const getRepoListFx = createEffect(({ variables }) => {
   return getRepoSearchList(variables);
 });
-
-// type repositoriesType = SearchRepoListQuery["search"]["nodes"];
 
 export const $repoSearchList = createStore<RepoFieldsFragment[]>([]);
 export const $search = createStore<string>("");
@@ -39,15 +38,26 @@ const initialVariables: SearchRepoListQueryVariables = {
   type: "REPOSITORY",
 };
 
+const $startCursor = createStore("");
+const $endCursor = createStore("");
+
 export const $variables =
   createStore<SearchRepoListQueryVariables>(initialVariables);
 
 $search.on(searchChanged, (_, search) => search);
 $variables.on(searchChanged, (state, search) => ({
   ...state,
-  first: 10,
   query: search,
 }));
+
+$startCursor.on(
+  getRepoListFx.doneData,
+  (_, payload) => payload?.data?.data?.search?.pageInfo?.startCursor ?? ""
+);
+$endCursor.on(
+  getRepoListFx.doneData,
+  (_, payload) => payload?.data?.data?.search?.pageInfo?.endCursor ?? ""
+);
 
 $repoSearchList.on(getRepoListFx.doneData, (_, payload) => {
   const nodes: SearchRepoListQuery["search"]["nodes"] =
@@ -55,6 +65,7 @@ $repoSearchList.on(getRepoListFx.doneData, (_, payload) => {
   const repoNodes = nodes as RepoFieldsFragment[];
   return repoNodes;
 });
+
 $isSearchLoading.on(getRepoListFx.pending, (_, payload) => payload);
 $searchErrorServer.on(
   getRepoListFx.fail,
@@ -66,3 +77,12 @@ sample({
   source: { variables: $variables },
   target: getRepoListFx,
 });
+
+// sample({
+//   clock: nextPage,
+//   source: { variables: { ...$variables, after: $endCursor } },
+//   target: getRepoListFx,
+// });
+
+$startCursor.watch((state) => console.log("startCursor", state));
+$endCursor.watch((state) => console.log("endCursor", state));

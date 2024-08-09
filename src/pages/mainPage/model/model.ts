@@ -1,4 +1,4 @@
-import { sharedConfigRoutes } from "@/shared/config";
+import { sharedConfigRoutes } from "@/shared/config/routes";
 
 export const currentRoute = sharedConfigRoutes.routes.main;
 

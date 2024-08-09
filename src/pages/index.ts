@@ -6,5 +6,5 @@ import { repoPageLib } from "./repoPage";
 
 export const Pages = createRoutesView({
   routes: [mainPageLib.MainRoute, repoPageLib.RepoRoute],
-  otherwise: notFoundPageUi.RepoPage,
+  otherwise: notFoundPageUi.NotFoundPage,
 });

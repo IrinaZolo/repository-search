@@ -1,6 +1,6 @@
 import { RouterProvider } from "atomic-router-react";
 
-import { sharedConfigRoutes } from "@/shared/config";
+import { sharedConfigRoutes } from "@/shared/config/routes";
 
 import { Pages } from "@/pages";
 

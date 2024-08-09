@@ -12,8 +12,6 @@ import { RepoCard } from "@/entities/repo/ui";
 import styles from "./SearchRepo.module.css";
 
 export function SearchRepo() {
-  // const [searchValue, setSearchValue] = useState<string>("");
-
   const { $repoList, $isLoading, pageMounted } = repoUserListSubModel;
   const { $repoSearchList, $isSearchLoading, searchChanged, $search } =
     repoSearchListSubModel;
@@ -55,39 +53,39 @@ export function SearchRepo() {
             lastCommitDate={"02.05.2022"}
           />
         </> */}
-        {!search ? (
-          !isLoading ? (
-            repoList?.map((node, index) => (
-              <RepoCard
-                key={index}
-                id={node.id}
-                name={node.name}
-                starsCount={node.stargazerCount}
-                url={node.url}
-                lastPushedDate={node?.pushedAt}
-              />
-            ))
-          ) : (
-            <div>loading ...</div>
-          )
-        ) : !isSearchLoading ? (
-          repoSearchList?.length > 0 ? (
-            repoSearchList?.map((node, index) => (
-              <RepoCard
-                key={index}
-                id={node.id}
-                name={node.name}
-                starsCount={node.stargazerCount}
-                url={node?.url}
-                lastPushedDate={node?.pushedAt}
-              />
-            ))
-          ) : (
+        {!search &&
+          !isLoading &&
+          !isSearchLoading &&
+          repoList?.map((node, index) => (
+            <RepoCard
+              key={index}
+              id={node.id}
+              name={node.name}
+              starsCount={node.stargazerCount}
+              url={node.url}
+              lastPushedDate={node?.pushedAt}
+            />
+          ))}
+        {!isSearchLoading &&
+          !isLoading &&
+          repoSearchList?.length > 0 &&
+          repoSearchList?.map((node, index) => (
+            <RepoCard
+              key={index}
+              id={node.id}
+              name={node.name}
+              starsCount={node.stargazerCount}
+              url={node?.url}
+              lastPushedDate={node?.pushedAt}
+            />
+          ))}
+        {!isLoading &&
+          !isSearchLoading &&
+          ((!(repoSearchList?.length > 0) && search) ||
+            (!(repoList?.length > 0) && !search)) && (
             <div>repositories not found</div>
-          )
-        ) : (
-          <div>loading ...</div>
-        )}
+          )}
+        {(isLoading || isSearchLoading) && <div>loading ...</div>}
       </div>
     </div>
   );

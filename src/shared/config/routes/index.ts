@@ -1,1 +1,1 @@
-export * from "./routes";
+export * as sharedConfigRoutes from "./routes";

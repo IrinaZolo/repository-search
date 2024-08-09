@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 
-import { sharedConfigRoutes } from "@/shared/config";
+import { sharedConfigRoutes } from "@/shared/config/routes";
 // import { useParams } from "react-router-dom";
 
 export const RepoPage: FunctionComponent = () => {
