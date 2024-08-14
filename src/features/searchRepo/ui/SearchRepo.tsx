@@ -1,6 +1,7 @@
 import { useUnit } from "effector-react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
+import { useIntersection } from "@/shared/lib/intersection";
 import Input from "@/shared/ui/components/input/Input";
 
 import {
@@ -13,8 +14,13 @@ import styles from "./SearchRepo.module.css";
 
 export function SearchRepo() {
   const { $repoList, $isLoading, pageMounted } = repoUserListSubModel;
-  const { $repoSearchList, $isSearchLoading, searchChanged, $search } =
-    repoSearchListSubModel;
+  const {
+    $repoSearchList,
+    $isSearchLoading,
+    searchChanged,
+    $search,
+    nextPage,
+  } = repoSearchListSubModel;
 
   const [repoList, isLoading, repoSearchList, isSearchLoading, search] =
     useUnit([
@@ -25,6 +31,14 @@ export function SearchRepo() {
       $search,
     ]);
 
+  const intersectionRef = useRef(null);
+
+  const intersection = useIntersection(intersectionRef, {
+    root: null,
+    rootMargin: "100px",
+    threshold: 1,
+  });
+
   function onChangeSearch(e) {
     searchChanged(e.target.value);
   }
@@ -32,6 +46,14 @@ export function SearchRepo() {
   useEffect(() => {
     pageMounted();
   }, []);
+
+  useEffect(() => {
+    if (intersection?.isIntersecting && !isSearchLoading) {
+      //request data
+      console.log("next");
+      nextPage();
+    }
+  }, [intersection?.isIntersecting]);
 
   return (
     <div className={styles.container}>
@@ -43,16 +65,6 @@ export function SearchRepo() {
         onChange={onChangeSearch}
       />
       <div className={styles.cardsContainer}>
-        {/* <>
-          <RepoCard
-            key={0}
-            id={"12313"}
-            name={"scan"}
-            starsCount={5}
-            url={"#"}
-            lastCommitDate={"02.05.2022"}
-          />
-        </> */}
         {!search &&
           !isLoading &&
           !isSearchLoading &&
@@ -86,6 +98,9 @@ export function SearchRepo() {
             <div>repositories not found</div>
           )}
         {(isLoading || isSearchLoading) && <div>loading ...</div>}
+      </div>
+      <div ref={intersectionRef}>
+        {intersection?.isIntersecting ? "loading ..." : ""}
       </div>
     </div>
   );
