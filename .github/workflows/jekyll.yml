@@ -39,6 +39,9 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
+        env:
+          VITE_GITHUB_ACCESS_TOKEN: ${{ vars.VITE_GITHUB_ACCESS_TOKEN }}
+          VITE_API_URL: ${{ vars.VITE_API_URL }}
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
