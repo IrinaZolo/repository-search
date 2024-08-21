@@ -2,7 +2,6 @@
   "name": "repository-search",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://IrinaZolo.github.io/repository-search/",
   "type": "module",
   "scripts": {
     "predeploy": "npm run build",
