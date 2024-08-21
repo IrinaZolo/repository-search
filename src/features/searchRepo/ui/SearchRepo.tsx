@@ -49,8 +49,6 @@ export function SearchRepo() {
 
   useEffect(() => {
     if (intersection?.isIntersecting && !isSearchLoading) {
-      //request data
-      console.log("next");
       nextPage();
     }
   }, [intersection?.isIntersecting]);
@@ -100,7 +98,7 @@ export function SearchRepo() {
         {(isLoading || isSearchLoading) && <div>loading ...</div>}
       </div>
       <div ref={intersectionRef}>
-        {intersection?.isIntersecting ? "loading ..." : ""}
+        {/* {intersection?.isIntersecting ? "loading ..." : ""} */}
       </div>
     </div>
   );
