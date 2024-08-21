@@ -17,11 +17,11 @@ export const routes = {
 
 const routesMap: UnmappedRouteObject<any>[] = [
   {
-    path: "/",
+    path: "/repository-search/",
     route: routes.main,
   },
   {
-    path: "/repo/:repoId",
+    path: "/repository-search/repo/:repoId",
     route: routes.repo,
   },
 ];
